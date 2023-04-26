@@ -1,0 +1,3 @@
+const TRIP_EVENT_VIEW_AMOUNT = 3;
+
+export {TRIP_EVENT_VIEW_AMOUNT};
