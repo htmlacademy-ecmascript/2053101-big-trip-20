@@ -1,6 +1,6 @@
 import {createElement} from '../render.js';
 
-const createPointEditTemplate = () => (`
+const createPointEditTemplate = () => (/*html*/`
 <form class="event event--edit" action="#" method="post">
 <header class="event__header">
   <div class="event__type-wrapper">
