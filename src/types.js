@@ -1,3 +1,7 @@
 /**
  * @typedef {import('./utils.js').SafeHtml} SafeHtml
  */
+
+/**
+ * @typedef {import('./views/brief-view.js').default} BriefView
+ */
