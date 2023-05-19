@@ -10,8 +10,8 @@ class SortPresenter extends Presenter {
    */
   createViewState() {
     /**
-       * @type {UrlParams}
-       */
+     * @type {UrlParams}
+     */
     const {sort = 'day'} = this.getUrlParams();
     /**
      * @type {Array<SortType>}
@@ -30,22 +30,21 @@ class SortPresenter extends Presenter {
    * @override
    */
   addEventListeners() {
+    this.view.addEventListener('change', this.handleViewChange.bind(this));
+  }
 
+  /**
+   * @param {Event & {target: {value: SortType}}} event
+  */
+  handleViewChange(event) {
     /**
-     * @param {Event & {target: {value: SortType}}} event
-    */
-    const handleViewChange = (event) => {
-      /**
-       * @type {UrlParams}
-       */
-      const urlParams = this.getUrlParams();
+     * @type {UrlParams}
+     */
+    const urlParams = this.getUrlParams();
 
-      urlParams.sort = event.target.value;
-      delete urlParams.edit;
-      this.setUrlParams(urlParams);
-    };
-
-    this.view.addEventListener('change', handleViewChange);
+    delete urlParams.edit;
+    urlParams.sort = event.target.value;
+    this.setUrlParams(urlParams);
   }
 
 }
