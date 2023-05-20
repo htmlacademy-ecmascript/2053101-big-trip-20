@@ -4,23 +4,31 @@ import destinations from '../data/destinations.json';
 import offerGroups from '../data/offers.json';
 
 class AppModel extends Model {
-  #points;
-  #destinations;
-  #offerGroups;
-
-  constructor() {
-    super();
-
-    this.#points = points;
-    this.#destinations = destinations;
-    this.#offerGroups = offerGroups;
-  }
+  #points = points;
+  #destinations = destinations;
+  #offerGroups = offerGroups;
 
   /**
+   * @type {Record<SortType, (a: Point, b: Point) => number>}
+   */
+  #sortCallbackMap = {
+    day: () => 0,
+    event: () => 0,
+    time: () => 0,
+    price: () => 0,
+    offers: () => 0
+  };
+
+  /**
+   * @param {{sort?: SortType}} [criteria]
    * @return {Array<Point>}
    */
-  getPoints() {
-    return this.#points.map(AppModel.adaptPointForClient);
+  getPoints(criteria = {}) {
+
+    const adaptedPoints = this.#points.map(AppModel.adaptPointForClient);
+    const sortCallback = this.#sortCallbackMap[criteria.sort] ?? this.#sortCallbackMap.day;
+
+    return adaptedPoints.sort(sortCallback);
   }
 
   /**
