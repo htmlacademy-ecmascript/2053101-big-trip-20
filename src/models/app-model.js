@@ -12,10 +12,10 @@ class AppModel extends Model {
    * @type {Record<SortType, (a: Point, b: Point) => number>}
    */
   #sortCallbackMap = {
-    day: () => 0,
+    day: (a, b) => Date.parse(a.startDateTime) - Date.parse(b.startDateTime),
     event: () => 0,
-    time: () => 0,
-    price: () => 0,
+    time: (a, b) => AppModel.calcPointDuaration(b) - AppModel.calcPointDuaration(a),
+    price: (a, b) => b.basePrice - a.basePrice,
     offers: () => 0
   };
 
@@ -44,6 +44,14 @@ class AppModel extends Model {
   getOfferGroups() {
     // @ts-ignore
     return structuredClone(this.#offerGroups);
+  }
+
+  /**
+   * @param {Point} point
+   * @return {number}
+   */
+  static calcPointDuaration(point) {
+    return Date.parse(point.endDateTime) - Date.parse(point.startDateTime);
   }
 
   /**
