@@ -118,11 +118,24 @@ class ListPresenter extends Presenter {
     const point = editor.state;
 
     switch (field.name) {
-      case 'event-destination': {
-        point.destinations.forEach((it) => {
-          it.isSelected = it.name === field.value;
+      case 'event-type': {
+        const offerGroups = this.model.getOfferGroups();
+        const {offers} = offerGroups.find((it) => it.type === field.value);
+
+        point.offers = offers;
+        point.types.forEach((it) => {
+          it.isSelected = it.value === field.value;
         });
-        editor.render();
+        editor.renderTypeAndRelatedFields();
+        break;
+      }
+      case 'event-destination': {
+        const name = field.value.trim();
+
+        point.destinations.forEach((it) => {
+          it.isSelected = it.name === name;
+        });
+        editor.renderDestination();
         break;
       }
     }
