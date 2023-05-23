@@ -11,6 +11,7 @@ class EditorView extends View {
     super();
 
     this.addEventListener('click', this.handleClick);
+    this.addEventListener('input', this.handleInput);
   }
 
   connectedCallback() {
@@ -37,6 +38,13 @@ class EditorView extends View {
     if (event.key === 'Escape') {
       this.notify('close');
     }
+  }
+
+  /**
+   * @param {InputEvent} event
+   */
+  handleInput(event) {
+    this.notify('edit', event.target);
   }
 
   /**
@@ -106,7 +114,7 @@ class EditorView extends View {
         <label class="event__label  event__type-output" for="event-destination-1">
           ${type.value}
         </label>
-        <input class="event__input  event__input--destination" id="event-destination-1" type="text" name="event-destination" value="${destination.name}" list="destination-list-1">
+        <input class="event__input  event__input--destination" id="event-destination-1" type="text" name="event-destination" value="${destination?.name}" list="destination-list-1">
 
         <datalist id="destination-list-1">
           ${point.destinations.map((it) => html`
@@ -216,19 +224,29 @@ class EditorView extends View {
     const destination = point.destinations.find((it) => it.isSelected);
 
     return html`
-      <section class="event__section  event__section--destination">
+      <section ${destination ? '' : 'hidden'} class="event__section  event__section--destination">
         <h3 class="event__section-title  event__section-title--destination">Destination</h3>
-        <p class="event__destination-description">${destination.description}</p>
+        <p class="event__destination-description">${destination?.description}</p>
 
         <div class="event__photos-container">
           <div class="event__photos-tape">
-            ${destination.pictures.map((it) => html`
+            ${destination?.pictures.map((it) => html`
               <img class="event__photo" src="${it.src}" alt="${it.description}">
             `)}
           </div>
         </div>
       </section>
     `;
+  }
+
+  renderTypeAndRelatedFields() {
+    this.render('.event__type-wrapper', this.createTypeFieldHtml());
+    this.render('.event__field-group--destination', this.createDestinationFieldHtml());
+    this.render('.event__section--offers', this.createOfferListFieldHtml());
+  }
+
+  renderDestination() {
+    this.render('.event__section--destination', this.createDestinationHtml());
   }
 }
 
