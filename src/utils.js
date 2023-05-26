@@ -64,6 +64,9 @@ function createDatePickers(startDateField, endDateField) {
   const startDatePicker = flatpickr(startDateField, options);
   const endDatePicker = flatpickr(endDateField, options);
 
+  startDatePicker.set('onChange', (dates) => endDatePicker.set('minDate', dates.at(0)));
+  endDatePicker.set('minDate', startDatePicker.selectedDates.at(0));
+
   return () => {
     startDatePicker.destroy();
     endDatePicker.destroy();
