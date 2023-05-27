@@ -16,7 +16,7 @@ import ListPresenter from './presenters/list-presenter.js';
 const appModel = new AppModel();
 
 console.table(
-  appModel.getPoints({filter: 'past'})
+  appModel.getPoints({filter: 'present'})
 )
 
 new BriefPresenter(document.querySelector('brief-view'));
