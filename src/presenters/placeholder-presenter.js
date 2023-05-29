@@ -4,12 +4,6 @@ import Presenter from './presenter.js';
  * @extends {Presenter<PlaceholderView, AppModel>}
  */
 class PlaceholderPresenter extends Presenter {
-  constructor() {
-    super(...arguments);
-
-
-  }
-
   /**
    * @type {Record<FilterType, string>}
    */
@@ -25,10 +19,16 @@ class PlaceholderPresenter extends Presenter {
    * @return {PlaceholderViewState}
    */
   createViewState() {
-    console.log(this.textMap);
+    /**
+     * @type {UrlParams}
+     */
+    const urlParams = this.getUrlParams();
+    const points = this.model.getPoints(urlParams);
+    console.log(points);
+
     return {
-      text: 'Click New Event to create your first point2',
-      isHidden: false
+      text: this.textMap[urlParams.filter] ?? this.textMap.everything,
+      isHidden: points.length > 0
     };
   }
 }
