@@ -15,6 +15,7 @@
  * @typedef {import('./views/card-view.js').default} CardView
  * @typedef {import('./views/editor-view.js').default} EditorView
  * @typedef {import('./views/view.js').default} View
+ * @typedef {import('./views/placeholder-view.js').default} PlaceholderView
  *
  */
 
@@ -82,6 +83,12 @@
  * @prop {Array<Offer & {isSelected?: boolean}>} offers
  * @prop {boolean} isFavorite
  * @prop {boolean} isEditable
+ */
+
+/**
+ * @typedef PlaceholderViewState
+ * @prop {string} text
+ * @prop {boolean} isHidden
  */
 
 /**
