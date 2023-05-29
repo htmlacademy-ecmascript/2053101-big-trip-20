@@ -11,6 +11,10 @@ class PlaceholderView extends View {
   createHtml() {
     const placeholder = this.state;
 
+    if (placeholder.isHidden) {
+      return '';
+    }
+
     return html`
       <p class="trip-events__msg">${placeholder.text}</p>
     `;
