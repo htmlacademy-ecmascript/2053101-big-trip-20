@@ -66,6 +66,23 @@ class ListPresenter extends Presenter {
   }
 
   /**
+   * @param {PointViewState} point
+   * @return {Point}
+   */
+  serializePointViewState(point) {
+    return {
+      id: point.id,
+      type: point.types.find((it) => it.isSelected).value,
+      destinationId: point.destinations.find((it) => it.isSelected)?.id,
+      startDateTime: point.startDateTime,
+      endDateTime: point.endDateTime,
+      basePrice: point.basePrice,
+      offerIds: point.offers.filter((it) => it.isSelected).map((it) => it.id),
+      isFavorite: point.isFavorite
+    };
+  }
+
+  /**
    * @override
    */
   addEventListeners() {
@@ -106,6 +123,7 @@ class ListPresenter extends Presenter {
     const point = card.state;
 
     point.isFavorite = !point.isFavorite;
+    console.log(this.serializePointViewState(point));
     card.render();
   }
 
