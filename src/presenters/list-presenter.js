@@ -90,6 +90,7 @@ class ListPresenter extends Presenter {
     this.view.addEventListener('close', this.handleViewClose.bind(this));
     this.view.addEventListener('favorite', this.handleViewFavorite.bind(this));
     this.view.addEventListener('edit', this.handleViewEdit.bind(this));
+    this.view.addEventListener('save', this.handleViewSave.bind(this));
   }
 
   /**
@@ -158,6 +159,18 @@ class ListPresenter extends Presenter {
       }
     }
 
+  }
+
+  /**
+   * @param {CustomEvent & {target: EditorView}} event
+   */
+  handleViewSave(event) {
+    const editor = event.target;
+    const point = editor.state;
+
+    event.preventDefault();
+    this.model.updatePoint(this.serializePointViewState(point));
+    this.handleViewClose();
   }
 }
 
