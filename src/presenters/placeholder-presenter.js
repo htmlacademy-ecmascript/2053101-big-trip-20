@@ -24,7 +24,6 @@ class PlaceholderPresenter extends Presenter {
      */
     const urlParams = this.getUrlParams();
     const points = this.model.getPoints(urlParams);
-    console.log(points);
 
     return {
       text: this.textMap[urlParams.filter] ?? this.textMap.everything,
