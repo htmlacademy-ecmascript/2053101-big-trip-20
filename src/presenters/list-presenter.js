@@ -29,8 +29,6 @@ class ListPresenter extends Presenter {
 
       items.unshift(this.createPointViewState(draftPoint));
     }
-    const [{isEditable, isDraft}] = items;
-    console.log({isEditable, isDraft});
     return {items};
   }
 
