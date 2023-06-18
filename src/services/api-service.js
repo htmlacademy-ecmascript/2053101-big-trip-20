@@ -1,6 +1,6 @@
 import Service from './service.js';
 
-export class ApiService extends Service {
+class ApiService extends Service {
   /**
    * @param {Partial<ServiceOptions>} options
    */
@@ -40,3 +40,5 @@ export class ApiService extends Service {
     return response.json();
   }
 }
+
+export default ApiService;
