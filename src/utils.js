@@ -7,12 +7,33 @@ import 'flatpickr/dist/flatpickr.css';
 dayjs.extend(durationPlugin);
 
 /**
- * @param {string} dateTime
+ * @param {string | dayjs.Dayjs} dateTime
+ * @param {boolean} [isNarrow]
  * @return {string}
  */
-function formatDate(dateTime) {
-  return dayjs(dateTime).format('MMM D');
+function formatDate(dateTime, isNarrow) {
+  return dayjs(dateTime).format(isNarrow ? 'D' : 'MMM D');
 }
+
+/**
+ * @param {string} startDateTime
+ * @param {string} endDateTime
+ */
+function formatDateRange(startDateTime, endDateTime) {
+  const start = dayjs(startDateTime);
+  const end = dayjs(endDateTime);
+
+  if (start.isSame(end, 'day')) {
+    return formatDate(start);
+  }
+
+  return [
+    formatDate(start),
+    formatDate(end, start.isSame(end, 'month'))
+  ].join('-');
+}
+
+console.log(formatDateRange('2023-06-16', '2023-06-16'));
 
 /**
  * @param {string} dateTime
@@ -102,4 +123,11 @@ function html(strings, ...values) {
   return new SafeHtml(result);
 }
 
-export {formatDate, formatTime, formatDuration, createDatePickers, SafeHtml, html};
+export {
+  formatDate,
+  formatDateRange,
+  formatTime,
+  formatDuration,
+  createDatePickers,
+  SafeHtml,
+  html};
