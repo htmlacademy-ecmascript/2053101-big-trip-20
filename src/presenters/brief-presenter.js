@@ -66,6 +66,23 @@ class BriefPresenter extends Presenter {
     }, 0);
 
   }
+
+  /**
+   * @override
+   */
+  handleWindowPopState() {}
+
+  /**
+   * @override
+   */
+  addEventListeners() {
+    this.model.addEventListener('change', this.handleModelChange.bind(this));
+  }
+
+
+  handleModelChange() {
+    this.updateView();
+  }
 }
 
 export default BriefPresenter;
