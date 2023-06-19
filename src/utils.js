@@ -3,6 +3,7 @@ import durationPlugin from 'dayjs/plugin/duration.js';
 import {escape as escapeHtml} from 'he';
 import flatpickr from 'flatpickr';
 import 'flatpickr/dist/flatpickr.css';
+import SafeHtml from './safe-html';
 
 dayjs.extend(durationPlugin);
 
@@ -92,8 +93,6 @@ function createDatePickers(startDateField, endDateField) {
   };
 }
 
-class SafeHtml extends String {}
-
 /**
  * @param {TemplateStringsArray} strings
  * @param {...any} values
@@ -127,5 +126,4 @@ export {
   formatTime,
   formatDuration,
   createDatePickers,
-  SafeHtml,
   html};
