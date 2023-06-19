@@ -33,8 +33,6 @@ function formatDateRange(startDateTime, endDateTime) {
   ].join('-');
 }
 
-console.log(formatDateRange('2023-06-16', '2023-06-16'));
-
 /**
  * @param {string} dateTime
  * @return {string}
